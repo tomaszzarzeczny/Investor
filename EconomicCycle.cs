@@ -2,21 +2,19 @@
 {
     internal class EconomicCycle
     {
-        private double gdpGrowthRateNum;
-        private string gdpGrowthRateCh;
-        private string inflationRateCh;
-        private MonetaryPolicyType monetaryPolicy;
-        private MonetaryPolicy mp;
-        public EconomicCycleType type;
+        private Vector GdpGrowth;
+        private Vector InflationRate;
+        private MonetaryPolicyType MonetaryPolicy;
+        private MonetaryPolicy MP;
+        public EconomicCycleType Type;
 
-        public EconomicCycle(double gdpGrowthRateNum, string gdpGrowthRateCh, string inflationRateCh, MonetaryPolicy monetaryPolicy)
+        public EconomicCycle(Vector gdpGrowth, Vector inflationRate, MonetaryPolicy monetaryPolicy)
         {
-            this.gdpGrowthRateCh = gdpGrowthRateCh;
-            this.gdpGrowthRateNum = gdpGrowthRateNum;
-            this.inflationRateCh = inflationRateCh;
-            this.mp = monetaryPolicy;
-            this.monetaryPolicy = monetaryPolicy.type;
-            type = DetermineEconomicCycle();
+            GdpGrowth = gdpGrowth;
+            InflationRate = inflationRate;
+            MP = monetaryPolicy;
+            MonetaryPolicy = monetaryPolicy.Type;
+            Type = DetermineEconomicCycle();
 
         }
         private EconomicCycleType DetermineEconomicCycle()
@@ -27,61 +25,50 @@
 
 
             // Check general conditions to determine economic cycle
-            if (gdpGrowthRateCh == "rising" && gdpGrowthRateNum <= GDP_HIGH_THRESHOLD && inflationRateCh == "rising" 
-                && (monetaryPolicy == MonetaryPolicyType.Tight || monetaryPolicy == MonetaryPolicyType.Hawkish))
+            if (GdpGrowth.Trend == Trend.Rising && GdpGrowth.Value <= GDP_HIGH_THRESHOLD && InflationRate.Trend == Trend.Rising 
+                && (MonetaryPolicy == MonetaryPolicyType.Tight || MonetaryPolicy == MonetaryPolicyType.Hawkish))
             {
                 economicCycle = EconomicCycleType.Expansion;
             }
-            else if (gdpGrowthRateCh == "rising" && gdpGrowthRateNum > GDP_HIGH_THRESHOLD && inflationRateCh == "rising" 
-                && (monetaryPolicy == MonetaryPolicyType.Dovish || monetaryPolicy == MonetaryPolicyType.Tight))
+            else if (GdpGrowth.Trend == Trend.Rising && GdpGrowth.Value > GDP_HIGH_THRESHOLD && InflationRate.Trend == Trend.Rising
+                && (MonetaryPolicy == MonetaryPolicyType.Dovish || MonetaryPolicy == MonetaryPolicyType.Tight))
             {
                 economicCycle = EconomicCycleType.Peak;
             }
-            else if (gdpGrowthRateCh == "falling" && inflationRateCh == "falling"
-                 && (monetaryPolicy == MonetaryPolicyType.Tight || monetaryPolicy == MonetaryPolicyType.Hawkish))
+            else if (GdpGrowth.Trend == Trend.Falling && InflationRate.Trend == Trend.Falling
+                 && (MonetaryPolicy == MonetaryPolicyType.Tight || MonetaryPolicy == MonetaryPolicyType.Hawkish))
             {
                 economicCycle = EconomicCycleType.Recession;
             }
-            else if (gdpGrowthRateCh == "falling" && inflationRateCh == "falling"
-                && (monetaryPolicy == MonetaryPolicyType.Dovish || monetaryPolicy == MonetaryPolicyType.Accommodative))
+            else if (GdpGrowth.Trend == Trend.Falling && InflationRate.Trend == Trend.Falling
+                && (MonetaryPolicy == MonetaryPolicyType.Dovish || MonetaryPolicy == MonetaryPolicyType.Accommodative))
             {
                 economicCycle = EconomicCycleType.Depression;
-                if (mp.isQE || gdpGrowthRateNum < GDP_LOW_THRESHOLD)
+                if (MP.IsQE || GdpGrowth.Value < GDP_LOW_THRESHOLD)
                 {
                     economicCycle = EconomicCycleType.Trough;
                 }
             }
-            else if (gdpGrowthRateCh == "rising" && monetaryPolicy == MonetaryPolicyType.Accommodative)
+            else if (GdpGrowth.Trend == Trend.Rising && MonetaryPolicy == MonetaryPolicyType.Accommodative)
             {
                 economicCycle = EconomicCycleType.Recovery;
             }
 
             // Handle special cases case by case
             if (economicCycle == EconomicCycleType.Unknown)
+            {
+                if (GdpGrowth.Value > GDP_HIGH_THRESHOLD
+                && (MonetaryPolicy == MonetaryPolicyType.Dovish || MonetaryPolicy == MonetaryPolicyType.Tight))
                 {
-                    if (gdpGrowthRateNum > GDP_HIGH_THRESHOLD
-                    && (monetaryPolicy == MonetaryPolicyType.Dovish || monetaryPolicy == MonetaryPolicyType.Tight))
-                    {
-                        economicCycle = EconomicCycleType.Peak;
+                    economicCycle = EconomicCycleType.Peak;
                 }
-                    else
-                    {
-                        economicCycle = EconomicCycleType.Unknown;
+                else
+                {
+                    economicCycle = EconomicCycleType.Unknown;
                 }
-                }
+            }
 
-                return economicCycle;
+            return economicCycle;
         }
-    }
-
-    public enum EconomicCycleType
-    {
-        Expansion,
-        Peak,
-        Recession,
-        Depression,
-        Recovery,
-        Trough,
-        Unknown
     }
 }

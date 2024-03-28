@@ -2,36 +2,34 @@
 {
     internal class MonetaryPolicy
     {
-        private double interestRateNum;
-        private string interestRateCh;
-        public bool isQE;
-        public MonetaryPolicyType type;
+        private Vector InterestRate;
+        public bool IsQE;
+        public MonetaryPolicyType Type;
 
-        public MonetaryPolicy(double interestRateNum, string interestRateCh, bool isQE) 
+        public MonetaryPolicy(Vector interestRate, bool isQE) 
         {
-            this.interestRateCh = interestRateCh;
-            this.interestRateNum = interestRateNum;
-            this.isQE = isQE;
-            type = DetermineMonetaryPolicy();
+            InterestRate = interestRate;
+            IsQE = isQE;
+            Type = DetermineMonetaryPolicy();
         }
 
-        public MonetaryPolicyType DetermineMonetaryPolicy()
+        private MonetaryPolicyType DetermineMonetaryPolicy()
         {
             const double IR_THRESHOLD = 2;
 
-            if (interestRateCh == "rising" && interestRateNum < IR_THRESHOLD)
+            if (InterestRate.Trend == Trend.Rising && InterestRate.Value < IR_THRESHOLD)
             {
                 return MonetaryPolicyType.Hawkish;
             }
-            else if (interestRateCh == "falling" && interestRateNum > IR_THRESHOLD)
+            else if (InterestRate.Trend == Trend.Falling && InterestRate.Value > IR_THRESHOLD)
             {
                 return MonetaryPolicyType.Dovish;
             }
-            else if (isQE || (interestRateCh == "falling" && interestRateNum < IR_THRESHOLD))
+            else if (IsQE || (InterestRate.Trend == Trend.Falling && InterestRate.Value < IR_THRESHOLD))
             {
                 return MonetaryPolicyType.Accommodative;
             }
-            else if (interestRateCh == "rising" && interestRateNum > IR_THRESHOLD && !isQE)
+            else if (InterestRate.Trend == Trend.Rising && InterestRate.Value > IR_THRESHOLD && !IsQE)
             {
                 return MonetaryPolicyType.Tight;
             }
@@ -40,14 +38,5 @@
                 return MonetaryPolicyType.Unknown;
             }
         }
-    }
-
-    public enum MonetaryPolicyType
-    {
-        Hawkish,
-        Dovish,
-        Accommodative,
-        Tight,
-        Unknown
     }
 }

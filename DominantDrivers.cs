@@ -2,22 +2,21 @@
 {
     internal class DominantDrivers
     {
-        
-        private double productivity;
-        private double debtLevel;
-        private GlobalTrade globalTrade;
-        private MonetaryPolicyType monetaryPolicy;
-        public List<DominantDriversType> dominantDrivers;
+        private double Productivity;
+        private double DebtLevel;
+        private GlobalTrade GlobalTrade;
+        private MonetaryPolicyType MonetaryPolicy;
+        public List<DominantDriversType> Drivers;
 
         public DominantDrivers(double productivityGrowth, double debtLevel, GlobalTrade globalTrade, MonetaryPolicyType monetaryPolicy) 
         { 
-            this.productivity = productivityGrowth;
-            this.debtLevel = debtLevel;
-            this.globalTrade = globalTrade;
-            this.monetaryPolicy = monetaryPolicy;
-            dominantDrivers = IdentifyDominantDrivers();
+            Productivity = productivityGrowth;
+            DebtLevel = debtLevel;
+            GlobalTrade = globalTrade;
+            MonetaryPolicy = monetaryPolicy;
+            Drivers = IdentifyDominantDrivers();
         }
-        public List<DominantDriversType> IdentifyDominantDrivers()
+        private List<DominantDriversType> IdentifyDominantDrivers()
         {
             const double PRODUCTIVITY_THRESHOLD = 0.5;
             const double DEBT_HIGH_THRESHOLD = 100;
@@ -27,63 +26,39 @@
             // TOOD: look not only at the current values but also at the trends
             List<DominantDriversType> dominantDrivers = new List<DominantDriversType>();
 
-            if (productivity >= PRODUCTIVITY_THRESHOLD)
+            if (Productivity >= PRODUCTIVITY_THRESHOLD)
             {
                 dominantDrivers.Add(DominantDriversType.ProductivityGrowth);
             }
-            if (productivity < PRODUCTIVITY_THRESHOLD)
+            if (Productivity < PRODUCTIVITY_THRESHOLD)
             {
                 dominantDrivers.Add(DominantDriversType.ProductivityDecline);
             }
-            if (debtLevel >= DEBT_HIGH_THRESHOLD)
+            if (DebtLevel >= DEBT_HIGH_THRESHOLD)
             {
                 dominantDrivers.Add(DominantDriversType.DebtLevelHigh);
             }
-            if (debtLevel < DEBT_LOW_THRESHOLD)
+            if (DebtLevel < DEBT_LOW_THRESHOLD)
             {
                 dominantDrivers.Add(DominantDriversType.DebtLevelLow);
             }
-            if (globalTrade == GlobalTrade.Stable)
+            if (GlobalTrade == GlobalTrade.Stable)
             {
                 dominantDrivers.Add(DominantDriversType.GlobalTradeStable);
             }
-            if (globalTrade == GlobalTrade.Unstable)
+            if (GlobalTrade == GlobalTrade.Unstable)
             {
                 dominantDrivers.Add(DominantDriversType.GlobalTradeUnstable);
             }
-            if (monetaryPolicy == MonetaryPolicyType.Accommodative)
+            if (MonetaryPolicy == MonetaryPolicyType.Accommodative)
             {
                 dominantDrivers.Add(DominantDriversType.MonetaryPolicyAccommodative);
             }
-            if (monetaryPolicy == MonetaryPolicyType.Tight)
+            if (MonetaryPolicy == MonetaryPolicyType.Tight)
             {
                 dominantDrivers.Add(DominantDriversType.MonetaryPolicyTight);
             }
             return dominantDrivers;
         }
-    }
-
-    public enum DebtLevels
-    {
-        Low,
-        High
-    }
-
-    public enum GlobalTrade
-    {
-        Stable,
-        Unstable
-    }
-
-    public enum DominantDriversType
-    {
-        ProductivityGrowth,
-        ProductivityDecline,
-        DebtLevelHigh,
-        DebtLevelLow,
-        GlobalTradeStable,
-        GlobalTradeUnstable,
-        MonetaryPolicyAccommodative,
-        MonetaryPolicyTight,
     }
 }
