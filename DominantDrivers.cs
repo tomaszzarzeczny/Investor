@@ -8,12 +8,12 @@
         private MonetaryPolicyType MonetaryPolicy;
         public List<DominantDriversType> Drivers;
 
-        public DominantDrivers(double productivityGrowth, double debtLevel, GlobalTrade globalTrade, MonetaryPolicyType monetaryPolicy) 
+        public DominantDrivers(double productivityGrowth, double debtLevel, GlobalTrade globalTrade, MonetaryPolicy monetaryPolicy) 
         { 
             Productivity = productivityGrowth;
             DebtLevel = debtLevel;
             GlobalTrade = globalTrade;
-            MonetaryPolicy = monetaryPolicy;
+            MonetaryPolicy = monetaryPolicy.Type;
             Drivers = IdentifyDominantDrivers();
         }
         private List<DominantDriversType> IdentifyDominantDrivers()

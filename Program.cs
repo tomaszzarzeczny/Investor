@@ -12,7 +12,7 @@ var productivityGrowth = 1.42;
 
 var monetaryPolicy = new MonetaryPolicy(interestRate, isQE);
 var economicCycle = new EconomicCycle(gdpGrowth, inflationRate, monetaryPolicy);
-var drivers = new DominantDrivers(productivityGrowth, debtToGdp, globalTrade, monetaryPolicy.Type);
+var drivers = new DominantDrivers(productivityGrowth, debtToGdp, globalTrade, monetaryPolicy);
 
 Console.WriteLine($"Economic cycle: {economicCycle.Type}");
 Console.WriteLine($"Dominant drivers:");
