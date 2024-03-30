@@ -15,14 +15,12 @@
             MP = monetaryPolicy;
             MonetaryPolicy = monetaryPolicy.Type;
             Type = DetermineEconomicCycle();
-
         }
         private EconomicCycleType DetermineEconomicCycle()
         {
             EconomicCycleType economicCycle = EconomicCycleType.Unknown;
             const double GDP_HIGH_THRESHOLD = 1.7;
             const double GDP_LOW_THRESHOLD = 1;
-
 
             // Check general conditions to determine economic cycle
             if (GdpGrowth.Trend == Trend.Rising && GdpGrowth.Value <= GDP_HIGH_THRESHOLD && InflationRate.Trend == Trend.Rising 

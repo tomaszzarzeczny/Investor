@@ -6,13 +6,13 @@ This project is an implementation of an "algorithm" described in Ray Dalio's vid
 
 Ray Dalio's "How the Economic Machine Works" provides a framework for understanding economic cycles. It helps to assess the current economic cycle based on key indicators such as: GDP growth, interest rate, inflation rate, and unemployment rate. Below there is a description of each phase of the economic cycle in relation to these indicators.
 
-1. **Current GDP Growth**: If GDP growth is high, it suggests economic expansion. If it's slowing down, it might indicate reaching a peak or entering a recession. If it's negative, it could signify a recession or depression.
+1. **GDP Growth**: If GDP growth is high, it suggests economic expansion. If it's slowing down, it might indicate reaching a peak or entering a recession. If it's negative, it could signify a recession or depression.
 
-2. **Current Interest Rate**: Central banks often adjust interest rates to influence economic activity. Low-interest rates typically stimulate borrowing and spending, fueling economic expansion. High-interest rates can cool down the economy and lead to a slowdown.
+2. **Interest Rate**: Central banks often adjust interest rates to influence economic activity. Low-interest rates typically stimulate borrowing and spending, fueling economic expansion. High-interest rates can cool down the economy and lead to a slowdown.
 
-3. **Current Inflation Rate**: Moderate inflation is often a sign of a healthy economy, indicating demand without excessive price increases. High inflation might prompt central banks to raise interest rates to curb it, potentially leading to a peak or recession. Deflation, on the other hand, can signal economic weakness.
+3. **Inflation Rate**: Moderate inflation is often a sign of a healthy economy, indicating demand without excessive price increases. High inflation might prompt central banks to raise interest rates to curb it, potentially leading to a peak or recession. Deflation, on the other hand, can signal economic weakness.
 
-4. **Current Unemployment Rate**: Low unemployment rates suggest a strong economy with ample job opportunities, characteristic of an expansion phase. Rising unemployment can indicate a slowdown or recession, while persistently high unemployment may signal a depression.
+4. **Unemployment Rate**: Low unemployment rates suggest a strong economy with ample job opportunities, characteristic of an expansion phase. Rising unemployment can indicate a slowdown or recession, while persistently high unemployment may signal a depression.
 
 ## Economic phases
 
