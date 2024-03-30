@@ -40,8 +40,7 @@
 
             assetScores["Cryptocurrencies"] = AssessCryptocurrencies(dominantDrivers);
 
-            var x = assetScores.OrderByDescending(x => x.Value.Score).ToDictionary(x => x.Key, x => x.Value);
-            return x;
+            return assetScores.OrderByDescending(x => x.Value.Score).ToDictionary(x => x.Key, x => x.Value);
         }
 
         private static AssetScore AssessStocksETFs(List<DominantDriversType> dominantDrivers)
@@ -76,6 +75,7 @@
                 { DominantDriversType.DebtLevelHigh, -2 },
                 { DominantDriversType.UnemploymentLow, 4 }
             };
+
             return CalculateAssetScore(dominantDrivers, stocskETFsDrivers);
         }
 
@@ -89,6 +89,7 @@
                 { DominantDriversType.DebtLevelHigh, 4 },
                 { DominantDriversType.UnemploymentHigh, 2 }
             };
+
             return CalculateAssetScore(dominantDrivers, stocskETFsDrivers);
         }
 
@@ -104,6 +105,7 @@
                 { DominantDriversType.MonetaryPolicyTight, -4 },
                 { DominantDriversType.DebtLevelHigh, -4 }
             };
+
             return CalculateAssetScore(dominantDrivers, stocskETFsDrivers);
         }
 
@@ -116,6 +118,7 @@
                 { DominantDriversType.MonetaryPolicyTight, 5 },
                 { DominantDriversType.DebtLevelHigh, 2 }
             };
+
             return CalculateAssetScore(dominantDrivers, stocskETFsDrivers);
         }
 
@@ -130,6 +133,7 @@
                 { DominantDriversType.MonetaryPolicyTight, -5 },
                 { DominantDriversType.DebtLevelHigh, 4 }
             };
+
             return CalculateAssetScore(dominantDrivers, stocskETFsDrivers);
         }
 
