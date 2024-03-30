@@ -46,7 +46,7 @@ Monetary policy refers to the actions taken by a central bank to manage the mone
 
 ## Asset classes and dominant drivers
 
-Here is how dominant drivers such as productivity growth, debt levels, global trade state, and monetary policy affect investing in various asset classes:
+Here is how dominant drivers affect investing in various asset classes:
 
 1. **Stocks/ETFs**:
    - *Economic Cycle*: Stocks tend to perform well during the expansion and recovery phases of the economic cycle as corporate earnings grow. Conversely, they may underperform during recessions and depressions.
