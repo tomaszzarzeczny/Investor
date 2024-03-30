@@ -22,7 +22,7 @@ foreach (var driver in dominantDrivers.Drivers)
     Console.WriteLine($"- {driver}");
 }
 
-Console.WriteLine($"Recommendations:");
+Console.WriteLine($"Possibilities:");
 foreach (var asset in assets)
 {
     Console.WriteLine($"- {asset}");
