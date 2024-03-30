@@ -3,19 +3,22 @@
     internal class DominantDrivers
     {
         private double Productivity;
+        private Trend ProductivityTrend;
         private double DebtLevel;
         private GlobalTrade GlobalTrade;
         private MonetaryPolicyType MonetaryPolicy;
         public List<DominantDriversType> Drivers;
 
-        public DominantDrivers(double productivityGrowth, double debtLevel, GlobalTrade globalTrade, MonetaryPolicy monetaryPolicy) 
+        public DominantDrivers(Vector productivityGrowth, double debtLevel, GlobalTrade globalTrade, MonetaryPolicy monetaryPolicy) 
         { 
-            Productivity = productivityGrowth;
+            Productivity = productivityGrowth.Value;
+            ProductivityTrend = productivityGrowth.Trend;
             DebtLevel = debtLevel;
             GlobalTrade = globalTrade;
             MonetaryPolicy = monetaryPolicy.Type;
             Drivers = IdentifyDominantDrivers();
         }
+
         private List<DominantDriversType> IdentifyDominantDrivers()
         {
             const double PRODUCTIVITY_THRESHOLD = 0.5;
@@ -23,14 +26,13 @@
             const double DEBT_LOW_THRESHOLD = 60;
 
             // Analyze the data to determine the dominant drivers of the economy
-            // TOOD: look not only at the current values but also at the trends
             List<DominantDriversType> dominantDrivers = new List<DominantDriversType>();
 
-            if (Productivity >= PRODUCTIVITY_THRESHOLD)
+            if (Productivity >= PRODUCTIVITY_THRESHOLD && ProductivityTrend == Trend.Rising)
             {
                 dominantDrivers.Add(DominantDriversType.ProductivityGrowth);
             }
-            if (Productivity < PRODUCTIVITY_THRESHOLD)
+            if (Productivity < PRODUCTIVITY_THRESHOLD && ProductivityTrend == Trend.Falling)
             {
                 dominantDrivers.Add(DominantDriversType.ProductivityDecline);
             }
