@@ -4,6 +4,7 @@
 var gdpGrowth = new Vector(3.3, Trend.Falling);
 var interestRate = new Vector(5.5, Trend.Rising);
 var inflationRate = new Vector(2.5, Trend.Rising);
+var unemploymentRate = new Vector(3.9, Trend.Stable);
 var isQE = false;
 var debtToGdp = 131.5;
 var globalTrade = GlobalTrade.Unstable;
@@ -12,7 +13,7 @@ var productivityGrowth = new Vector(1.42, Trend.Rising);
 
 var monetaryPolicy = new MonetaryPolicy(interestRate, isQE);
 var economicCycle = new EconomicCycle(gdpGrowth, inflationRate, monetaryPolicy);
-var dominantDrivers = new DominantDrivers(productivityGrowth, debtToGdp, globalTrade, monetaryPolicy);
+var dominantDrivers = new DominantDrivers(productivityGrowth, debtToGdp, globalTrade, monetaryPolicy, unemploymentRate);
 var assets = AssetEvaluation.EvaluateAssetClasses(economicCycle.Type, dominantDrivers.Drivers);
 
 Console.WriteLine($"Economic cycle: {economicCycle.Type}");
@@ -25,5 +26,5 @@ foreach (var driver in dominantDrivers.Drivers)
 Console.WriteLine($"Possibilities:");
 foreach (var asset in assets)
 {
-    Console.WriteLine($"- {asset}");
+    Console.WriteLine($"- {asset.Key}, Score: {asset.Value.Score}, Confidence: {asset.Value.Confidence:P0}");
 }

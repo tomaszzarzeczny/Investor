@@ -2,10 +2,10 @@
 {
     public class AssetEvaluation
     {
-        public static Dictionary<string, int> EvaluateAssetClasses(EconomicCycleType economicCycle, List<DominantDriversType> dominantDrivers)
+        public static Dictionary<string, AssetScore> EvaluateAssetClasses(EconomicCycleType economicCycle, List<DominantDriversType> dominantDrivers)
         {
             List<string> recommendedAssets = new List<string>();
-            Dictionary<string, int> assetScores = new Dictionary<string, int>();
+            Dictionary<string, AssetScore> assetScores = new Dictionary<string, AssetScore>();
 
             switch (economicCycle)
             {
@@ -40,215 +40,116 @@
 
             assetScores["Cryptocurrencies"] = AssessCryptocurrencies(dominantDrivers);
 
-            return assetScores.OrderByDescending(x => x.Value).ToDictionary(x => x.Key, x => x.Value);
+            var x = assetScores.OrderByDescending(x => x.Value.Score).ToDictionary(x => x.Key, x => x.Value);
+            return x;
         }
 
-        private static int AssessStocksETFs(List<DominantDriversType> dominantDrivers)
+        private static AssetScore AssessStocksETFs(List<DominantDriversType> dominantDrivers)
         {
-            int score = 0;
+            var stocskETFsDrivers = new Dictionary<DominantDriversType, int>
+            {
+                { DominantDriversType.ProductivityGrowth, 5 },
+                { DominantDriversType.GlobalTradeStable, 3 },
+                { DominantDriversType.MonetaryPolicyAccommodative, 2 },
+                { DominantDriversType.DebtLevelLow, 4 },
+                { DominantDriversType.ProductivityDecline, -5 },
+                { DominantDriversType.GlobalTradeUnstable, -3 },
+                { DominantDriversType.MonetaryPolicyTight, -2 },
+                { DominantDriversType.DebtLevelHigh, -4 },
+                { DominantDriversType.UnemploymentLow, 3 },
+            };
 
-            if (dominantDrivers.Contains(DominantDriversType.ProductivityGrowth))
-            {
-                score += 5;
-            }
-            if (dominantDrivers.Contains(DominantDriversType.GlobalTradeStable))
-            {
-                score += 3;
-            }
-            if (dominantDrivers.Contains(DominantDriversType.MonetaryPolicyAccommodative))
-            {
-                score += 2;
-            }
-            if (dominantDrivers.Contains(DominantDriversType.DebtLevelLow))
-            {
-                score += 4;
-            }
-            if (dominantDrivers.Contains(DominantDriversType.ProductivityDecline))
-            {
-                score -= 5;
-            }
-            if (dominantDrivers.Contains(DominantDriversType.GlobalTradeUnstable))
-            {
-                score -= 3;
-            }
-            if (dominantDrivers.Contains(DominantDriversType.MonetaryPolicyTight))
-            {
-                score -= 2;
-            }
-            if (dominantDrivers.Contains(DominantDriversType.DebtLevelHigh))
-            {
-                score -= 4;
-            }
-
-            return score;
+            return CalculateAssetScore(dominantDrivers, stocskETFsDrivers);
         }
 
-        private static int AssessRealEstateREITs(List<DominantDriversType> dominantDrivers)
+        private static AssetScore AssessRealEstateREITs(List<DominantDriversType> dominantDrivers)
         {
-            int score = 0;
-
-            if (dominantDrivers.Contains(DominantDriversType.ProductivityGrowth))
+            var stocskETFsDrivers = new Dictionary<DominantDriversType, int>
             {
-                score += 3;
-            }
-            if (dominantDrivers.Contains(DominantDriversType.GlobalTradeStable))
-            {
-                score += 3;
-            }
-            if (dominantDrivers.Contains(DominantDriversType.MonetaryPolicyAccommodative))
-            {
-                score += 5;
-            }
-            if (dominantDrivers.Contains(DominantDriversType.DebtLevelLow))
-            {
-                score += 2;
-            }
-            if (dominantDrivers.Contains(DominantDriversType.ProductivityDecline))
-            {
-                score -= 2;
-            }
-            if (dominantDrivers.Contains(DominantDriversType.GlobalTradeUnstable))
-            {
-                score -= 3;
-            }
-            if (dominantDrivers.Contains(DominantDriversType.MonetaryPolicyTight))
-            {
-                score -= 2;
-            }
-            if (dominantDrivers.Contains(DominantDriversType.DebtLevelHigh))
-            {
-                score -= 2;
-            }
-
-            return score;
+                { DominantDriversType.ProductivityGrowth, 3 },
+                { DominantDriversType.GlobalTradeStable, 3 },
+                { DominantDriversType.MonetaryPolicyAccommodative, 5 },
+                { DominantDriversType.DebtLevelLow, 2 },
+                { DominantDriversType.ProductivityDecline, -2 },
+                { DominantDriversType.GlobalTradeUnstable, -3 },
+                { DominantDriversType.MonetaryPolicyTight, -2 },
+                { DominantDriversType.DebtLevelHigh, -2 },
+                { DominantDriversType.UnemploymentLow, 4 }
+            };
+            return CalculateAssetScore(dominantDrivers, stocskETFsDrivers);
         }
 
-        private static int AssessMetals(List<DominantDriversType> dominantDrivers)
+        private static AssetScore AssessMetals(List<DominantDriversType> dominantDrivers)
         {
-            int score = 0;
-
-            if (dominantDrivers.Contains(DominantDriversType.ProductivityGrowth))
+            var stocskETFsDrivers = new Dictionary<DominantDriversType, int>
             {
-                score += 4;
-            }
-            if (dominantDrivers.Contains(DominantDriversType.GlobalTradeStable))
-            {
-                score += 2;
-            }
-            if (dominantDrivers.Contains(DominantDriversType.GlobalTradeUnstable))
-            {
-                score += 5;
-            }
-            if (dominantDrivers.Contains(DominantDriversType.MonetaryPolicyAccommodative))
-            {
-                score += 5;
-            }
-            if (dominantDrivers.Contains(DominantDriversType.MonetaryPolicyTight))
-            {
-                score -= 3;
-            }
-            if (dominantDrivers.Contains(DominantDriversType.DebtLevelHigh))
-            {
-                score += 4;
-            }
-
-            return score;
+                { DominantDriversType.MonetaryPolicyAccommodative, 5 },
+                { DominantDriversType.GlobalTradeUnstable, 5 },
+                { DominantDriversType.MonetaryPolicyTight, -3 },
+                { DominantDriversType.DebtLevelHigh, 4 },
+                { DominantDriversType.UnemploymentHigh, 2 }
+            };
+            return CalculateAssetScore(dominantDrivers, stocskETFsDrivers);
         }
 
-        private static int AssessBonds(List<DominantDriversType> dominantDrivers)
+        private static AssetScore AssessBonds(List<DominantDriversType> dominantDrivers)
         {
-            int score = 0;
-
-            if (dominantDrivers.Contains(DominantDriversType.ProductivityGrowth))
+            var stocskETFsDrivers = new Dictionary<DominantDriversType, int>
             {
-                score += 4;
-            }
-            if (dominantDrivers.Contains(DominantDriversType.GlobalTradeStable))
-            {
-                score += 3;
-            }
-            if (dominantDrivers.Contains(DominantDriversType.MonetaryPolicyAccommodative))
-            {
-                score += 4;
-            }
-            if (dominantDrivers.Contains(DominantDriversType.DebtLevelLow))
-            {
-                score += 4;
-            }
-            if (dominantDrivers.Contains(DominantDriversType.ProductivityDecline))
-            {
-                score -= 4;
-            }
-            if (dominantDrivers.Contains(DominantDriversType.GlobalTradeUnstable))
-            {
-                score -= 3;
-            }
-            if (dominantDrivers.Contains(DominantDriversType.MonetaryPolicyTight))
-            {
-                score -= 4;
-            }
-            if (dominantDrivers.Contains(DominantDriversType.DebtLevelHigh))
-            {
-                score -= 4;
-            }
-
-            return score;
+                { DominantDriversType.ProductivityGrowth, 4 },
+                { DominantDriversType.GlobalTradeStable, 3 },
+                { DominantDriversType.MonetaryPolicyAccommodative, 4 },
+                { DominantDriversType.DebtLevelLow, 4 },
+                { DominantDriversType.GlobalTradeUnstable, -3 },
+                { DominantDriversType.MonetaryPolicyTight, -4 },
+                { DominantDriversType.DebtLevelHigh, -4 }
+            };
+            return CalculateAssetScore(dominantDrivers, stocskETFsDrivers);
         }
 
-        private static int AssessCash(List<DominantDriversType> dominantDrivers)
+        private static AssetScore AssessCash(List<DominantDriversType> dominantDrivers)
         {
-            int score = 0;
-
-            if (dominantDrivers.Contains(DominantDriversType.MonetaryPolicyTight))
+            var stocskETFsDrivers = new Dictionary<DominantDriversType, int>
             {
-                score += 5;
-            }
-            if (dominantDrivers.Contains(DominantDriversType.DebtLevelHigh))
-            {
-                score += 2;
-            }
-            if (dominantDrivers.Contains(DominantDriversType.GlobalTradeUnstable))
-            {
-                score += 1;
-            }
-            if (dominantDrivers.Contains(DominantDriversType.ProductivityGrowth))
-            {
-                score -= 3;
-            }
-
-            return score;
+                { DominantDriversType.ProductivityGrowth, -3 },
+                { DominantDriversType.GlobalTradeUnstable, 1 },
+                { DominantDriversType.MonetaryPolicyTight, 5 },
+                { DominantDriversType.DebtLevelHigh, 2 }
+            };
+            return CalculateAssetScore(dominantDrivers, stocskETFsDrivers);
         }
 
-        private static int AssessCryptocurrencies(List<DominantDriversType> dominantDrivers)
+        private static AssetScore AssessCryptocurrencies(List<DominantDriversType> dominantDrivers)
         {
-            int score = 0;
+            var stocskETFsDrivers = new Dictionary<DominantDriversType, int>
+            {
+                { DominantDriversType.ProductivityGrowth, 3 },
+                { DominantDriversType.GlobalTradeStable, 3 },
+                { DominantDriversType.MonetaryPolicyAccommodative, 5 },
+                { DominantDriversType.GlobalTradeUnstable, 3 },
+                { DominantDriversType.MonetaryPolicyTight, -5 },
+                { DominantDriversType.DebtLevelHigh, 4 }
+            };
+            return CalculateAssetScore(dominantDrivers, stocskETFsDrivers);
+        }
 
-            if (dominantDrivers.Contains(DominantDriversType.ProductivityGrowth))
+        private static AssetScore CalculateAssetScore(List<DominantDriversType> dominantDrivers, Dictionary<DominantDriversType, int> assetDrivers)
+        {
+            var score = 0;
+            double confidenceDenominator = 0;
+
+            foreach (var driver in dominantDrivers)
             {
-                score += 3;
-            }
-            if (dominantDrivers.Contains(DominantDriversType.GlobalTradeStable))
-            {
-                score += 3;
-            }
-            if (dominantDrivers.Contains(DominantDriversType.GlobalTradeUnstable))
-            {
-                score += 3;
-            }
-            if (dominantDrivers.Contains(DominantDriversType.MonetaryPolicyAccommodative))
-            {
-                score += 5;
-            }
-            if (dominantDrivers.Contains(DominantDriversType.DebtLevelHigh))
-            {
-                score += 4;
-            }
-            if (dominantDrivers.Contains(DominantDriversType.MonetaryPolicyTight))
-            {
-                score -= 5;
+                if (assetDrivers.ContainsKey(driver))
+                {
+                    score += assetDrivers[driver];
+                    confidenceDenominator = assetDrivers[driver] > 0 ? confidenceDenominator + assetDrivers[driver] : confidenceDenominator;
+                }
             }
 
-            return score;
+            var confidence = confidenceDenominator == 0 ? 0 : score / confidenceDenominator;
+
+            return new AssetScore(score, confidence);
         }
     }
 }

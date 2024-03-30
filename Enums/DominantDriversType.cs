@@ -10,5 +10,7 @@
         GlobalTradeUnstable,
         MonetaryPolicyAccommodative,
         MonetaryPolicyTight,
+        UnemploymentHigh,
+        UnemploymentLow,
     }
 }
