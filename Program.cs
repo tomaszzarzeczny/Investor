@@ -12,18 +12,18 @@ var productivityGrowth = 1.42;
 
 var monetaryPolicy = new MonetaryPolicy(interestRate, isQE);
 var economicCycle = new EconomicCycle(gdpGrowth, inflationRate, monetaryPolicy);
-var drivers = new DominantDrivers(productivityGrowth, debtToGdp, globalTrade, monetaryPolicy);
+var dominantDrivers = new DominantDrivers(productivityGrowth, debtToGdp, globalTrade, monetaryPolicy);
+var assets = AssetEvaluation.EvaluateAssetClasses(economicCycle.Type, dominantDrivers.Drivers);
 
 Console.WriteLine($"Economic cycle: {economicCycle.Type}");
 Console.WriteLine($"Dominant drivers:");
-foreach (var driver in drivers.Drivers)
+foreach (var driver in dominantDrivers.Drivers)
 {
     Console.WriteLine($"- {driver}");
 }
 
-var recommendedAssets = AssetEvaluation.EvaluateAssetClasses(economicCycle.Type, drivers.Drivers);
 Console.WriteLine($"Recommendations:");
-foreach (var asset in recommendedAssets)
+foreach (var asset in assets)
 {
     Console.WriteLine($"- {asset}");
 }

@@ -38,11 +38,11 @@ Monetary policy refers to the actions taken by a central bank to manage the mone
 
 1. **Accommodative Monetary Policy**: Central banks implement accommodative policies to stimulate borrowing, investment, and economic activity. Lower interest rates make borrowing cheaper, encouraging spending and investment. Interest rates are low or decreasing. Quantitative Easing (QE) is enabled during periods of economic weakness, used to further lower long-term interest rates and inject liquidity into the financial system.
 
-2. **Tight Monetary Policy**:Central banks adopt a tight policy stance to control inflation or prevent an overheating economy. Higher interest rates make borrowing more expensive, which can reduce spending and investment. Interest rates are high or increasing. Quantitative Easing is not enabled during a tight monetary policy stance, as central banks aim to tighten monetary conditions.
+2. **Tight Monetary Policy**:  banks adopt a tight policy stance to control inflation or prevent an overheating economy. Higher interest rates make borrowing more expensive, which can reduce spending and investment. Interest rates are high or increasing. Quantitative Easing is not enabled during a tight monetary policy stance, as central banks aim to tighten monetary conditions.
 
 3. **Hawkish Monetary Policy**: Central banks adopt a hawkish stance to combat inflationary pressures. Rising interest rates aim to moderate economic growth and inflation. Interest rates are expected to rise or are being raised. Quantitative Easing is not enabled, as central banks may taper or halt QE programs to normalize monetary policy.
 
-4. **Dovish Monetary Policy**: Central banks adopt a dovish stance to support economic growth and employment. Lower interest rates stimulate borrowing and spending. Interest rates are expected to decrease or are lowered.Quantitative Easing is often enabled during a dovish stance, especially when interest rates are already low, to provide further support to financial markets and economic activity.
+4. **Dovish Monetary Policy**: Central banks adopt a dovish stance to support economic growth and employment. Lower interest rates stimulate borrowing and spending. Interest rates are expected to decrease or are lowered. Quantitative Easing is often enabled during a dovish stance, especially when interest rates are already low, to provide further support to financial markets and economic activity.
 
 ## Asset classes and dominant drivers
 
