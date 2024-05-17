@@ -34,12 +34,12 @@
                 economicCycle = EconomicCycleType.Peak;
             }
             else if (GdpGrowth.Trend == Trend.Falling && InflationRate.Trend == Trend.Falling
-                 && (MonetaryPolicy == MonetaryPolicyType.Tight || MonetaryPolicy == MonetaryPolicyType.Hawkish))
+                 && (MonetaryPolicy == MonetaryPolicyType.Tight || MonetaryPolicy == MonetaryPolicyType.Dovish))
             {
                 economicCycle = EconomicCycleType.Recession;
             }
             else if (GdpGrowth.Trend == Trend.Falling && InflationRate.Trend == Trend.Falling
-                && (MonetaryPolicy == MonetaryPolicyType.Dovish || MonetaryPolicy == MonetaryPolicyType.Accommodative))
+                && (MonetaryPolicy == MonetaryPolicyType.Hawkish || MonetaryPolicy == MonetaryPolicyType.Accommodative))
             {
                 economicCycle = EconomicCycleType.Depression;
                 if (MP.IsQE || GdpGrowth.Value < GDP_LOW_THRESHOLD)
